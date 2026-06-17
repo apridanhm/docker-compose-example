@@ -7,6 +7,7 @@ services:
     ports:
       - "8090:80"
     volumes:
+# ubah bind volume sesuai yang kamu set
       - /bind_volume/Laravel12-PHP82-MySQL-Vite-TailwindCSS4/www:/var/www/html
       - /bind_volume/Laravel12-PHP82-MySQL-Vite-TailwindCSS4/nginx/nginx.conf:/etc/nginx/http.d/default.conf
       - /bind_volume/Laravel12-PHP82-MySQL-Vite-TailwindCSS4/php/php.ini:/etc/php82/conf.d/custom.ini
@@ -23,6 +24,7 @@ services:
   db:
     image: mariadb:10.11
     environment:
+# ubah env sesuai env mu cokkk 
       MYSQL_ROOT_PASSWORD: password_root_kuat
       MYSQL_DATABASE: nama_database
       MYSQL_USER: web_user
@@ -31,7 +33,9 @@ services:
       - /bind_volume/Laravel12-PHP82-MySQL-Vite-TailwindCSS4/mysql/data:/var/lib/mysql
       - /bind_volume/Laravel12-PHP82-MySQL-Vite-TailwindCSS4/mysql/conf:/etc/my.cnf.d
     ports:
+# sesuaikan port
       - "3307:3306"
+# sesuaikan network juga 
     networks:
       - nama_network
 
