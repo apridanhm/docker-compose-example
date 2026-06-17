@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: ./web
+    ports:
+      - "8090:80"
+    volumes:
+      - /bind_volume/Laravel12-PHP82-MySQL-Vite-TailwindCSS4/www:/var/www/html
+      - /bind_volume/Laravel12-PHP82-MySQL-Vite-TailwindCSS4/nginx/nginx.conf:/etc/nginx/http.d/default.conf
+      - /bind_volume/Laravel12-PHP82-MySQL-Vite-TailwindCSS4/php/php.ini:/etc/php82/conf.d/custom.ini
+    environment:
+      - DB_HOST=db
+      - DB_DATABASE=nama_database
+      - DB_USERNAME=web_user
+      - DB_PASSWORD=password_strong
+    depends_on:
+      - db
+    networks:
+      - nama_network
+
+  db:
+    image: mariadb:10.11
+    environment:
+      MYSQL_ROOT_PASSWORD: password_root_kuat
+      MYSQL_DATABASE: nama_database
+      MYSQL_USER: web_user
+      MYSQL_PASSWORD: password_strong
+    volumes:
+      - /bind_volume/Laravel12-PHP82-MySQL-Vite-TailwindCSS4/mysql/data:/var/lib/mysql
+      - /bind_volume/Laravel12-PHP82-MySQL-Vite-TailwindCSS4/mysql/conf:/etc/my.cnf.d
+    ports:
+      - "3307:3306"
+    networks:
+      - nama_network
+
+networks:
+  nama_network:
+    driver: bridge
